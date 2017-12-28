@@ -53,4 +53,24 @@ public class SingleLinkedListTest {
 		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("9"));
 		SingleLinkedListUitl.traverseLinkedList(headNode, true);
 	}
+	/**
+	 * 翻转链表
+	 */
+	@Test
+	public void reverseLinkedList(){
+		Node headNode = SingleLinkedListUitl.addNodeFromHead(null, new Node("1"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("2"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("3"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("4"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("5"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("6"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("7"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("8"));
+		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("9"));
+		headNode = SingleLinkedListUitl.reverseLinkedLink(headNode);
+		SingleLinkedListUitl.traverseLinkedList(headNode, true);
+		
+	}
+	
+	
 }

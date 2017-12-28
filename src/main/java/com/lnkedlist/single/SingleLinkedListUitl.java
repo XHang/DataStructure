@@ -119,22 +119,36 @@ public class SingleLinkedListUitl {
 		}
 		return headNode;
 	}
-    public static void deleteNode(Node wu)  
-    {  
-        if(wu==null||wu.getNextNode()==null) return;//如果p为空或为单链表中最后一个结点不符合题意，直接返回  
-        Node liu=wu.getNextNode();//q为p的后继结点  
-        wu.setData(liu.getData());
-        wu.setNextNode(liu.getNextNode());//从单链表中删除结点q  
-    }  
 
     /**
      * 反转链表
      * @param headNode 目标链表的头节点
      * @return 反转链表后的头节点
+     * 假设需要翻转的链表是1,2,3,4,5
+     *其实关键在于你要在递归过程中保存每一个链表的元素，这才可能反转链表
      */
-    public Node reverseLinkedList(Node node){
-    	if(node.getNextNode() == null){
-    		node.setNextNode(reverseLinkedList(node));
-    	}
+    public static Node reverseLinkedLink(Node head) {  
+    	//如果递归到最后一个元素5，返回
+        if(head == null || head.getNextNode()==null){
+        	return head;
+        }
+        //获取递归回浮的元素，预计会是5,5,5,5,5  笑~
+        Node reNode = reverseLinkedLink(head.getNextNode());
+        head.getNextNode().setNextNode(head);
+        head.setNextNode(null);
+        //确保在每一次递归回浮中，都保存头节点的引用
+        return reNode;
+    }  
+    
+    /**
+     * 反转链表
+     * @param headNode
+     * @return
+     */
+    public static Node reverseLinkedLinkByLoop(Node headNode){
+		return headNode;
+    	
     }
+    
+    
 }
