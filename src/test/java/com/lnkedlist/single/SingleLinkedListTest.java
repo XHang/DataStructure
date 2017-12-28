@@ -67,9 +67,9 @@ public class SingleLinkedListTest {
 		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("7"));
 		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("8"));
 		headNode = SingleLinkedListUitl.addNodeFromHead(headNode, new Node("9"));
-		headNode = SingleLinkedListUitl.reverseLinkedLink(headNode);
+		//头插法生成的链表是9,8,7,6,5,4,3,2,1
+		headNode = SingleLinkedListUitl.reverseLinkedLinkByLoop(headNode);
 		SingleLinkedListUitl.traverseLinkedList(headNode, true);
-		
 	}
 	
 	

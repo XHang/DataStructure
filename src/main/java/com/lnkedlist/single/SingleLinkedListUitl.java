@@ -141,12 +141,28 @@ public class SingleLinkedListUitl {
     }  
     
     /**
-     * 反转链表
-     * @param headNode
+     * 反转链表,用循环实现
+     * @param currentNode
      * @return
+     * 重点是在一次循环你要有两个节点，一个节点是当前循环的节点，另一个是当前循环节点的前一个节点
      */
-    public static Node reverseLinkedLinkByLoop(Node headNode){
-		return headNode;
+    public static Node reverseLinkedLinkByLoop(Node currentNode){
+    	Node preNode = null;
+    	Node postNode = null;
+    	while(currentNode!=null){
+    		//preNode等于空的情况只能是第一次循环，一次循环后，preNode永远指向当前循环节点的前一个节点
+    		if(preNode == null){
+    			preNode = currentNode;
+    			currentNode = preNode.getNextNode();
+    			preNode.setNextNode(null);
+    		}else{
+    			postNode = currentNode.getNextNode();	//记录当前节点的后一个节点
+    			currentNode.setNextNode(preNode);  			//把当前循环节点的下一个节点指向preNode，也就是前一个节点
+    			preNode = currentNode;								//把当前循环的节点设为preNode，以便在下一轮循环记录前一个节点
+    			currentNode = postNode;
+    		}
+    	}
+		return preNode;
     	
     }
     
