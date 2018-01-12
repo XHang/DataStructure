@@ -24,4 +24,16 @@ public class DoubleLinkedListUitl {
 		targetNode.setNextNode(null);
 		return headNode;
 	}
+	
+	/**
+	 * 逆向遍历双链表
+	 * @param node  末尾的节点
+	 * @return 
+	 */
+	public static void reverseTraverseLinkedList(Node tailNode){
+		while(tailNode!=null){
+			System.out.println("当前遍历的节点是："+tailNode.getData());
+			tailNode = tailNode.getPreNode();
+		}
+	}
 }

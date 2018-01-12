@@ -1,5 +1,7 @@
 package com.lnkedlist.common;
 
+import java.util.Comparator;
+
 import com.lnkedlist.AbstractNode;
 
 /**
@@ -30,4 +32,29 @@ public class LinkedListUitl {
 		}
 		return  preNode;
 	}
+	
+	/**
+	 * 对链表进行排序
+	 * 使用的是冒泡排序
+	 * @param headNode 链表的头节点
+	 * @param comparable  比较器对象，比较两个节点哪个大
+	 * @return  排序后的头节点
+	 */
+	public static AbstractNode sortLinkedList(AbstractNode headNode,Comparator<AbstractNode> comparator){
+		if(headNode == null){
+			return null;
+		}
+		AbstractNode postNode = null;
+		AbstractNode preNode = null;
+		while(true){
+			postNode = headNode.getNextNode();
+			//说明第一个节点比第二个节点大
+			if(comparator.compare(headNode, postNode)>0){
+				
+			}
+		}
+	}
+	
+//.	private static 
+	
 }

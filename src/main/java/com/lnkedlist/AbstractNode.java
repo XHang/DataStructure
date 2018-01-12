@@ -15,5 +15,7 @@ public abstract class AbstractNode {
 	public abstract void setNextNode(AbstractNode nextNode);
 	
 	
+	
+	
 
 }

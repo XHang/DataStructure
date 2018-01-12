@@ -12,6 +12,11 @@ public class Node extends AbstractNode {
 	
 	private String data;
 	
+	public Node(String data) {
+		super();
+		this.data = data;
+	}
+
 	private Node preNode;
 	
 	private Node nextNode;
@@ -34,7 +39,7 @@ public class Node extends AbstractNode {
 
 	@Override
 	public void setNextNode(AbstractNode nextNode) {
-		if(!(nextNode instanceof Node)){
+		if(nextNode!=null && !(nextNode instanceof Node)){
 			throw new IllegalArgumentException("只允许传双链表的节点对象");
 		}
 		this.nextNode =  (Node)nextNode;
