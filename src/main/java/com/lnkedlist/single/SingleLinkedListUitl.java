@@ -1,5 +1,7 @@
 package com.lnkedlist.single;
 
+import com.lnkedlist.common.LinkedListUitl;
+
 /**
  * 单链表工具类
  * @author Mr-hang
@@ -32,7 +34,7 @@ public class SingleLinkedListUitl {
 			head = targeNode;
 		}else{
 			//如果有头节点，先遍历到最后一个节点，再把终节点的下一个节点的引用指向新创建的节点
-			Node endNode = traverseLinkedList(head,false);
+			Node endNode = (Node) LinkedListUitl.traverseLinkedList(head,false);
 			endNode.setNextNode(targeNode);
 		}
 		return head;
@@ -58,27 +60,7 @@ public class SingleLinkedListUitl {
 	
 	
 	
-	/**
-	 * 遍历整个链表，返回最后的节点
-	 * @param preNode 头节点
-	 * @param isprintln 是否需要在遍历过程中打印节点的值
-	 * @return
-	 */
-	public  static Node traverseLinkedList(Node preNode,boolean isprintln){
-		if(preNode == null){
-			throw new RuntimeException("链表为空");
-		}
-		Node nextNode = preNode;
-		//循环取preNode的下一个节点，直至为null，返回preNode
-		while(nextNode!=null){
-			preNode = nextNode;
-			if(isprintln){
-				System.out.println("当前节点的值为"+preNode.getData());
-			}
-			nextNode=preNode.getNextNode();
-		}
-		return  preNode;
-	}
+	
 	
 	/**
 	 *从链表中删除指定节点

@@ -2,12 +2,14 @@ package com.lnkedlist.single;
 
 import java.util.Objects;
 
+import com.lnkedlist.AbstractNode;
+
 /**
  * 单链表的节点对象
  * @author Mr-hang
  *
  */
-public class Node {
+public class Node  extends AbstractNode{
 	private String data;
 	
 	private Node nextNode;
@@ -35,6 +37,7 @@ public class Node {
 	 * 得到节点数据
 	 * @return
 	 */
+	@Override
 	public String getData() {
 		return data;
 	}
@@ -42,6 +45,7 @@ public class Node {
 	 * 设置节点数据
 	 * @param data
 	 */
+	@Override
 	public void setData(String data) {
 		this.data = data;
 	}
@@ -50,6 +54,7 @@ public class Node {
 	 * 得到下一个节点的引用
 	 * @return
 	 */
+	@Override
 	public Node getNextNode() {
 		return nextNode;
 	}
@@ -57,8 +62,12 @@ public class Node {
 	 * 设置下一个节点的引用
 	 * @param nextNode
 	 */
-	public void setNextNode(Node nextNode) {
-		this.nextNode = nextNode;
+	@Override
+	public void setNextNode(AbstractNode nextNode) {
+		if(!(nextNode instanceof Node)){
+			throw new IllegalArgumentException("nextNode Only Allowed is SingleLinkedList");
+		}
+		this.nextNode = (Node)nextNode;
 	}
 
 	@Override
