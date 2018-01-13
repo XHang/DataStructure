@@ -36,25 +36,61 @@ public class LinkedListUitl {
 	/**
 	 * 对链表进行排序
 	 * 使用的是冒泡排序
-	 * @param headNode 链表的头节点
+	 * @param currentNode 链表的头节点
 	 * @param comparable  比较器对象，比较两个节点哪个大
 	 * @return  排序后的头节点
 	 */
-	public static AbstractNode sortLinkedList(AbstractNode headNode,Comparator<AbstractNode> comparator){
-		if(headNode == null){
+	public static AbstractNode sortLinkedList(AbstractNode currentNode,Comparator<AbstractNode> comparator){
+		if(currentNode == null){
 			return null;
 		}
+		int length = getLinkedListLength(currentNode);
 		AbstractNode postNode = null;
 		AbstractNode preNode = null;
+		AbstractNode headNode = currentNode;
+		for(int i=0;i<length;i++){
+			currentNode = headNode;
+			for(int j=0;j<length-(i+1);j++){
+				if(comparator.compare(currentNode, currentNode.getNextNode())){
+					
+				}
+			}
+		}
+		
+		
+		
+		
 		while(true){
-			postNode = headNode.getNextNode();
+			postNode = currentNode.getNextNode();
 			//说明第一个节点比第二个节点大
-			if(comparator.compare(headNode, postNode)>0){
-				
+			if(comparator.compare(currentNode, postNode)>0){
+				sawp(preNode,currentNode,postNode);
 			}
 		}
 	}
 	
-//.	private static 
+	/**
+	 * 交换节点1和节点2的位置
+	 * @param preNode 节点1的前一个节点
+	 * @param node1
+	 * @param node2
+	 */
+	private  static void  sawp(AbstractNode preNode,AbstractNode node1,AbstractNode node2){
+		
+	}
+	
+	/**
+	 * 获取链表的长度
+	 * @param node  头节点
+	 * @return
+	 */
+	public static int getLinkedListLength(AbstractNode node){
+		int lentgh = 0;
+		while(node!=null){
+			lentgh++;
+			node = node.getNextNode();
+		}
+		return lentgh;
+	}
 	
 }
