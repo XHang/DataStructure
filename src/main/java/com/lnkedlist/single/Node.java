@@ -64,7 +64,7 @@ public class Node  extends AbstractNode{
 	 */
 	@Override
 	public void setNextNode(AbstractNode nextNode) {
-		if(!(nextNode instanceof Node)){
+		if(nextNode !=null &&!(nextNode instanceof Node) ){
 			throw new IllegalArgumentException("nextNode Only Allowed is SingleLinkedList");
 		}
 		this.nextNode = (Node)nextNode;

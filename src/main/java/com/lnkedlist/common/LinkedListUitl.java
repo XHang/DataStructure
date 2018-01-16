@@ -2,6 +2,7 @@ package com.lnkedlist.common;
 
 import java.util.Comparator;
 
+
 import com.lnkedlist.AbstractNode;
 
 /**
@@ -45,28 +46,36 @@ public class LinkedListUitl {
 			return null;
 		}
 		int length = getLinkedListLength(currentNode);
-		AbstractNode postNode = null;
 		AbstractNode preNode = null;
 		AbstractNode headNode = currentNode;
+		AbstractNode postNode = null;
 		for(int i=0;i<length;i++){
+			//每一次内部循环后变量都要重置
 			currentNode = headNode;
+			preNode = null;
+			postNode = null;
 			for(int j=0;j<length-(i+1);j++){
-				if(comparator.compare(currentNode, currentNode.getNextNode())){
-					
+				postNode = currentNode.getNextNode();
+				if(comparator.compare(currentNode, postNode)>0){
+					//要记录循环中的头节点，以便下一次循环能找到头节点
+					if(j==0){
+						headNode = postNode;
+					}
+					swap(preNode, currentNode, postNode);
+					//需要交换节点位置话，左边的节点就是下一个循环的前一个节点
+					preNode = postNode;
+					//如果不需要交换节点位置，也需要为下一次循环记录节点值
+				}else{
+					if(j==0){
+						headNode = currentNode;
+					}
+					preNode = currentNode;
+					//记录下一个循环的节点值
+					currentNode = postNode;
 				}
 			}
 		}
-		
-		
-		
-		
-		while(true){
-			postNode = currentNode.getNextNode();
-			//说明第一个节点比第二个节点大
-			if(comparator.compare(currentNode, postNode)>0){
-				sawp(preNode,currentNode,postNode);
-			}
-		}
+		return headNode;
 	}
 	
 	/**
@@ -75,8 +84,18 @@ public class LinkedListUitl {
 	 * @param node1
 	 * @param node2
 	 */
-	private  static void  sawp(AbstractNode preNode,AbstractNode node1,AbstractNode node2){
-		
+	private  static void  swap(AbstractNode preNode,AbstractNode node1,AbstractNode node2){
+		//如果这种情况成立，则说明节点1是头节点
+		AbstractNode node3 = node2.getNextNode();
+		if(preNode == null){
+			node1.setNextNode(node3);
+			node2.setNextNode(node1);
+		}else{
+			preNode.setNextNode(node2);
+			node2.setNextNode(node1);
+			node1.setNextNode(node3);
+		}
+		return ;
 	}
 	
 	/**
