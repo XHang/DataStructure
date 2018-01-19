@@ -26,4 +26,9 @@ public class LinkedListUitlTest {
 		System.out.println("now traverse LinkedList");
 		LinkedListUitl.traverseLinkedList(head, true);
 	}
+	
+	
+	public void getNodeOfRecipe
+	
+	
 }

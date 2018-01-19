@@ -112,4 +112,31 @@ public class LinkedListUitl {
 		return lentgh;
 	}
 	
+	/**
+	 * 获取倒数第index的元素
+	 * 本程序将从头节点,index为0开始计算
+	 * @param node2  头节点
+	 * @param 指定的index元素
+	 * @return
+	 * 程序流程，先遍历到正序的index位置,记为引用2，此时头节点记为引用1
+	 * 然后引用1和引用2同时遍历，直至引用2到末尾节点，此时的引用1既是目标值
+	 */
+	public static AbstractNode  getNodeOfReciprocal(AbstractNode node2,int targetIndex){
+		int index = 0;
+		AbstractNode node1 = node2;
+		while(true){
+			//++index理论上是先用index判断，然后index再++
+			if(++index == targetIndex){
+				break;
+			}
+			node2 = node2.getNextNode();
+		}
+		while(node2.getNextNode()!=null){
+			node2 = node2.getNextNode();
+			node1 = node1.getNextNode();
+		}
+		return node1;
+	}
+	
+	
 }
