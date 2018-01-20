@@ -28,7 +28,21 @@ public class LinkedListUitlTest {
 	}
 	
 	
-	public void getNodeOfRecipe
+	@Test
+	public void getNodeOfRecipe(){
+		int index = 3;
+		Node head =  SingleLinkedListUitl.addNode(null, "0");
+		SingleLinkedListUitl.addNode(head, "2");
+		SingleLinkedListUitl.addNode(head, "3");
+		SingleLinkedListUitl.addNode(head, "4");
+		SingleLinkedListUitl.addNode(head, "5");
+		SingleLinkedListUitl.addNode(head, "6");
+		SingleLinkedListUitl.addNode(head, "7");
+		SingleLinkedListUitl.addNode(head, "8");
+		SingleLinkedListUitl.addNode(head, "9");
+		Node targetNode = (Node) LinkedListUitl.getNodeOfReciprocal(head, index);
+		System.out.println("倒叙第"+index+"节点的值是"+targetNode.getData());
+	}
 	
 	
 }
