@@ -1,5 +1,7 @@
 package com.lnkedlist.single;
 
+import org.junit.internal.Throwables;
+
 import com.lnkedlist.common.LinkedListUitl;
 
 /**
@@ -145,8 +147,179 @@ public class SingleLinkedListUitl {
     		}
     	}
 		return preNode;
-    	
     }
     
+    /**
+     * 为循环链表添加末尾节点
+     * @param circleNode 头节点
+     * @param targetNode 目标节点
+     * @return 头节点
+     *  实际环形链表也可以是双选链表，只要多设置一个引用就行，实际没有尝试的必要
+     */
+    public static Node addNodeforCircle(Node circleNode,Node targetNode){
+    	Node firstNode = circleNode;
+    	while(circleNode !=null && circleNode.getNextNode()!=null && circleNode.getNextNode()!=firstNode){
+    		circleNode = circleNode.getNextNode();
+    	}
+    	if(firstNode == null){
+    		return targetNode;
+    	}
+    	circleNode.setNextNode(targetNode);
+    	targetNode.setNextNode(firstNode);
+    	return firstNode;
+    }
     
+    /**
+     * 判断链表是否属于环形链表
+     * @param node 链表的其中一个节点
+     * @return
+     * 思路：定义两个指针，遍历整个链表，一个遍历得快，一个遍历得慢，如果该链表属于环形链表
+     * 那终有一天，快指针会追上慢指针，并对她说，你知道吗？这个链表，是个环形链表。。（你够了）
+     * 
+     */
+    public static  boolean isCircleLinkedList(Node node){
+    	Node collisionNode = getCollisionNode(node);
+    	if(collisionNode !=null){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * 获取环链表中相碰的节点
+     * @param node
+     * @return 如果链表没有环，返回null;
+     */
+    public static Node getCollisionNode(Node node){
+    	Node fastNode = node;
+    	Node slowNode = node;
+    	while(fastNode!=null && fastNode.getNextNode()!=null){
+    		System.out.println("快节点"+fastNode.getData());
+    		System.out.println("慢节点"+slowNode.getData());
+    		fastNode = fastNode.getNextNode().getNextNode();
+    		slowNode = slowNode.getNextNode();
+    		if(fastNode == slowNode){
+    			return fastNode;
+    		}
+    	}
+    	return null;
+    }
+    
+    /**
+     * 输入一个单向链表，判断该链表是否属于环形链表，如果属于，返回该环形链表的入口节点。
+     * @param headNode
+     * @return
+     * 思路是这样的，跟上面的一样，先定义两个指针-慢指针和快指针，如果追赶的上，就是有环链表。
+     * 然后快指针回到头节点，换成一个一个节点走，慢指针按照原来计划。
+     * 再次相遇的那个节点就是入口节点
+     * 关于这种算法需要数据基础，通过算式得出，然而现在还是不懂，先码程序再说
+     */
+    public static Node getIntoNodeIfCircleLinkedList(Node headNode){
+    	Node fastNode = headNode;
+    	Node slowNode = headNode;
+    	boolean isCircleLinkedList = false;
+    	while(fastNode!=null && fastNode.getNextNode()!=null){
+    		System.out.println("快节点"+fastNode.getData());
+    		System.out.println("慢节点"+slowNode.getData());
+    		fastNode = fastNode.getNextNode().getNextNode();
+    		slowNode = slowNode.getNextNode();
+    		if(fastNode == slowNode){
+    			isCircleLinkedList = true;
+    			break;
+    		}
+    	}
+    	if(isCircleLinkedList){
+    		fastNode=headNode;
+    		while(fastNode!=slowNode){
+    			System.out.println("快节点"+fastNode.getData());
+        		System.out.println("慢节点"+slowNode.getData());
+    			fastNode = fastNode.getNextNode();
+    			slowNode = slowNode.getNextNode();
+    		}
+    		return slowNode;
+    	}
+    	throw new RuntimeException("该链表没有环");
+    }
+    /**
+     * 判断两个链表是否相交，交叉不符合情况，因为交叉的节点会有三个引用指针，此时就不是单链表
+     * @param node1
+     * @param node2
+     * 第一种思路：就是遍历其中一个链表，拿每个遍历的节点去比较第二个链表的每一个节点，有则相交。浪费效率，不予考虑
+     * 第二种将其中一个链表映射为哈希表，同样遍历链表2，看链表2的节点是否在哈希表里面，有则相交。浪费效率，不予考虑
+     * 第三种将第二个链表接在第一个链表里面，然后遍历第一个链表，如果合并后的链表有环，则必然相交
+     * 第四种要知道，两个链表相交后的节点都是一样的，也就是说，相交的两个链表最后的节点都是一样的。
+     * 所以只要遍历取得两个链表的最后节点，判断是否相同，即可
+     */
+	public static boolean  isIntersect(Node node1,Node node2){
+	   node1 = (Node) LinkedListUitl.traverseLinkedList(node1, false);
+	   node2 = (Node) LinkedListUitl.traverseLinkedList(node2, false);
+	   if(node1 == node2){
+		   return true;
+	   }
+	   return false;
+	}
+	
+	/**
+	 * 如果提供的链表是有环链表，要求判断是否相交
+	 * 思路：先找到其中一个链表的环中节点，用追赶式找出快慢指针相逢的节点。
+	 * 然后用判断环中节点是否在另一个链表里面，如果是，则相交
+	 * @param node1
+	 * @param node2
+	 * @return
+	 * 错误的思路：同样是快慢指针，但是两指针在不同的链表里，同样追赶式，判断是否相交。
+	 * 确实可以判断相交，但是万一不相交的话，其中一个环链表的指针就会进入死循环。无药可救
+	 */
+	public static boolean isIntersectIfCircle(Node node1,Node node2){
+		Node collisionNode = getCollisionNode(node1);
+		//如果两个链表至少有一个是非回环链表的话，肯定不相交
+		if(collisionNode == null || !isCircleLinkedList(node2)){
+			return false;
+		}
+		while(node2.getNextNode()!=null){
+			if(collisionNode == node2){
+				return true;
+			}
+			node2 = node2.getNextNode();
+		}
+		return false;
+	}
+	
+	/**
+	 * 获取两个链表相交的节点（无环链表）
+	 * @param node1
+	 * @param node2
+	 * 思路：设长链表长度为L1，短链表长度为L2,则让指针现在长链表走(L1-L2)的长度，使之长和短链表在同一个起点上
+	 * 然后依次遍历长短链表，当遍历的两个节点相同时，此节点就是交点
+	 */
+	public static Node getIntersectNode(Node node1,Node node2){
+		int length1 = LinkedListUitl.getLinkedListLength(node1);
+		int length2 = LinkedListUitl.getLinkedListLength(node2);
+		int tempInt=0;
+		Node temp = null;
+		//假设node1的链表长于node2，如果不是，那就强迫是
+		if(length1<length2){
+			temp = node1;
+			node1 = node2;
+			node2 = temp;
+			tempInt = length1;
+			length1 = length2;
+			length2 = tempInt;
+			tempInt =0;
+		}
+		while(node1 != null){
+			if(tempInt==length1-length2){
+				break;
+			}
+			node1 = node1.getNextNode();
+			tempInt++;
+		}
+		while(node1!=null || node2 !=null){
+			if(node1 == node2){
+				return node1;
+			}
+			node1 = node1.getNextNode();
+			node2 = node2.getNextNode();
+		}
+		throw new RuntimeException("两个链表无交点");
+	}
 }

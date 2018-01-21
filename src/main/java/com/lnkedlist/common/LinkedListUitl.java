@@ -17,6 +17,7 @@ public class LinkedListUitl {
 	 * @param preNode 头节点
 	 * @param isprintln 是否需要在遍历过程中打印节点的值
 	 * @return
+	 *
 	 */
 	public  static AbstractNode traverseLinkedList(AbstractNode preNode,boolean isprintln){
 		if(preNode == null){
@@ -102,6 +103,7 @@ public class LinkedListUitl {
 	 * 获取链表的长度
 	 * @param node  头节点
 	 * @return
+	 * 头节点被认为是第一个节点
 	 */
 	public static int getLinkedListLength(AbstractNode node){
 		int lentgh = 0;
@@ -138,5 +140,27 @@ public class LinkedListUitl {
 		return node1;
 	}
 	
+	/**
+	 * 获取中间的节点
+	 * @return
+	 * 解法有两个：
+	 * 1：先获取链表的长度，然后取其中间的节点
+	 * 2：需要两个指针，一个一次移动两个节点,一个一次只移动一个节点。
+	 * 快指针移动到全程，此时慢指针指向的节点就是中间节点，其实很容易理解
+	 * 慢指针移动的节点是快节点移动的节点的一半，快节点走完了全程，慢节点就走完全程的一半，也就是到了中间节点
+	 * 该方法可以获取中间节点并且只遍历一遍链表
+	 */
+	public static AbstractNode getNodeOfmiddle(AbstractNode fastNode ){
+		AbstractNode slowNode = fastNode;
+		while(fastNode!=null && fastNode.getNextNode()!=null){
+			System.out.println("fast指针指向"+fastNode.getData());
+			System.out.println("slow指针指向"+slowNode.getData());
+			fastNode = fastNode.getNextNode().getNextNode();
+			slowNode = slowNode.getNextNode();
+		}
+		return slowNode;
+	}
 	
+	
+		
 }

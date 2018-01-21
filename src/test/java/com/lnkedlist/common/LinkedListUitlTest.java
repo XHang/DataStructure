@@ -44,5 +44,23 @@ public class LinkedListUitlTest {
 		System.out.println("倒叙第"+index+"节点的值是"+targetNode.getData());
 	}
 	
+	/**
+	 * 获取链表中间节点测试
+	 */
+	@Test
+	public void getNodeOfmiddleTest(){
+		Node head =  SingleLinkedListUitl.addNode(null, "0");
+		SingleLinkedListUitl.addNode(head, "1");
+		SingleLinkedListUitl.addNode(head, "2");
+		SingleLinkedListUitl.addNode(head, "3"); 
+		SingleLinkedListUitl.addNode(head, "4");
+		SingleLinkedListUitl.addNode(head, "5");
+		SingleLinkedListUitl.addNode(head, "6");
+		SingleLinkedListUitl.addNode(head, "7");
+		SingleLinkedListUitl.addNode(head, "8");
+		Node targetNode = (Node) LinkedListUitl.getNodeOfmiddle(head);
+		System.out.println("中间节点的值是"+targetNode.getData());
+	}
+	
 	
 }
