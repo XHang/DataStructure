@@ -27,13 +27,15 @@ public class ItemComparator  implements Comparator<Item>{
 		}else if((item1.exp<item2.exp)){
 			return -1;
 		}else{
-			if(item1.coef>item2.coef){
+		/*	if(item1.coef>item2.coef){
 				return 1;
 			}else if(item1.coef < item2.coef){
 				return -1;
 			}else{
 				return 0;
-			}
+			}*/
+			//如果两个项的指数一样，表示是同类型
+			return 0;
 		}
 	}
 
