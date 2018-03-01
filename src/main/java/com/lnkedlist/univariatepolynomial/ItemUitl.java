@@ -23,6 +23,30 @@ public class ItemUitl {
 		temp.nextItem = new Item(exp, coef);
 		return item;
 	}
+	
+	/**
+	 * 降幂添加多项式的项
+	 * @param exp
+	 * @param coef
+	 * @param item
+	 * @return
+	 */
+	public static Item  addItemByDescending(Integer exp,Integer coef,Item item){
+		//如果第一项没有，则传进来的指数和系数作为多项式的第一项返回出去
+		if(item == null){
+			return new Item(exp, coef);
+		}
+		Item preItem = item;
+		Item postItem = item;
+		while(true) {
+			//如果传进来指数大于当前循环的数,表示到达临界值,可以退出循环,判断为空是判断完整个链表,还是找不到临界值,则直接退出循环,反正
+			if(postItem ==null || exp>postItem.exp ) {
+				break;
+			}
+			preItem = postItem;
+			postItem = postItem.nextItem;
+		}
+	}
 	/**
 	 * 将一条链表附加在另一条链表的后面
 	 * 将一个多项式加在另一个多项式的后面

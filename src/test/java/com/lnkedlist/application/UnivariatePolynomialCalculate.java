@@ -3,6 +3,7 @@ package com.lnkedlist.application;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Comparator;
 
 import org.junit.Test;
@@ -17,7 +18,7 @@ import com.lnkedlist.univariatepolynomial.ItemUitl;
  * 编写日期 ：2018/2/23
  *
  */
-public class UnivariatePolynomialAddCalculate {
+public class UnivariatePolynomialCalculate {
 	
 	
 	/**
@@ -200,4 +201,81 @@ public class UnivariatePolynomialAddCalculate {
 		nextItem.exp = exp;
 		nextItem.coef = coef;
 	}
+	
+	/**
+	 * 一元多项式的相乘
+	 * @throws Exception 
+	 * 
+	 */
+	@Test
+	public void multitly() throws Exception {
+		System.out.println("开始输入第一个多项式");
+		Item item1 = getItem();
+		System.out.println("开始输入第二个多项式");
+		Item item2 = getItem();
+		
+	}
+	/**
+	 * 一元多项式的相乘
+	 * @param item1 
+	 * @param item2
+	 * @return
+	 */
+	public Item multitly(Item item1,Item item2) {
+		Item result = null;
+		while(item1 !=null) {
+			while(item2 !=null) {
+			}
+		}
+		return result;
+	}
+	/**
+	 * 单项之间乘
+	 * @param item1 
+	 * @param itme2
+	 * @return 计算后的新项
+	 * 计算规则
+	 * 指数相加,系数相乘
+	 */
+	private Item itemMultitly(Item item1,Item itme2) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+		Integer coef = item1.coef*itme2.coef;
+		Integer exp = item1.exp+itme2.exp;
+		return new Item(exp, coef);
+	}
+	
+	/**
+	 * 输入一个多项式
+	 * 要求在输入多项式后就已经将这个多项式做降幂排列了
+	 * 并且合并输入过程中的同类项
+	 * 其实算法很简单,就是把输入指数和已经输入多项式的每一项进行比较
+	 * 找到和输入指数临界的两个元素,前一个元素的指数比输入指数小,后一个比输入指数大.
+	 * 就把输入的那个项插入到两个元素中间,即可
+	 * 万一要是前一个元素的指数和输入指数相等,简单,合并同类项
+	 * @return
+	 * @throws Exception 
+	 */
+	private Item inputItem() throws Exception {
+		int count=1;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, "utf-8"));
+		Item head = null;
+		while(true){
+			try {
+				System.out.println("请输入第"+count+"项的系数");
+				Integer coef = new Integer(reader.readLine());
+				System.out.println("请输入第"+count+"项的指数");
+				Integer exp = new Integer(reader.readLine());
+				head = ItemUitl.addItem(exp, coef, head);
+			} catch (NumberFormatException e) {
+				System.err.println("请输入正确的的数字格式");
+				continue;
+			}
+			System.out.println("已添加一项，键入回车继续添加，输入exit退出多项式的建立");
+			count++;
+			if("exit".equals(reader.readLine())){
+				break;
+			}
+		}
+		return head;
+	}
 }
+                                                                                                                                                                                                                                                                                                                                        
