@@ -23,17 +23,21 @@ public class UnivariatePolynomialAddCalculate {
 	/**
 	 * 用户输入两个多项式，打印出来，并计算其相加后的结果
 	 * 请用Junit运行
+	 * 其实有BUG的说，如果输入的多项式包含同类项的话，实际运行后会合并不了
 	 * @throws IOException
 	 */
 	@Test
 	public void addCalculate() throws  IOException{
 		System.out.println("请输入第一条多项式");
 		Item item1 = getItem();
+		item1 = bubbleSort(item1,new ItemComparator());
 		printlnUnivariatePolynomial(item1);
 		System.out.println("请输入第二条多项式");
 		Item item2 = getItem();
+		item2 = bubbleSort(item2,new ItemComparator());
 		printlnUnivariatePolynomial(item2);
 		System.out.println("计算多项式的和");
+		
 		Item merageItem = addCalculate(item1,item2);
 		printlnUnivariatePolynomial(merageItem);
 	}
@@ -161,45 +165,39 @@ public class UnivariatePolynomialAddCalculate {
 	}
 
 	/**
-	 * 对一条多项式进行降幂排列
-	 * @param item 多项式的第一项
-	 * @return 降幂后多项式的第一项
-	 * power by Google & Baidu
-	 * 本次要求冒泡排序不能通过链表的长度进行循环
+	 * 冒泡排序
+	 * 对一元多项式进行降幂的冒泡排序
+	 * @param head 多项式的第一项
+	 * @param comparator 比较器
+	 * @return  排完序后多项式的第一项
 	 */
-	private Item sort(Item item){
-		//定义两个临时变量用于存储外部和内部循环的项
-		Comparator<Item> comparator = new ItemComparator(); 
-		Item outertemp = item;
-		Item innertemp = item;
-		//定义此变量用于存储内部循环遍历的前一项--用于交换
-		Item innerPre = null;
-		//每外部循环一次，outertemp就指向下一个项，如果为空，说明外部循环已经结束
-		//这样就不用去计算链表的长度来控制外内循环
-		while(outertemp !=null){
-			while(innertemp.nextItem !=null){
-				if(comparator.compare(innertemp, innertemp.nextItem)<0 ){
-					swap(innertemp,innertemp.nextItem,innerPre);
-				}else{
-					innerPre = innertemp;
-					innertemp = innertemp.nextItem;
+	public Item bubbleSort(Item head,Comparator<Item> comparator){
+		Item outer = null;
+		Item inner = null;
+		//总比较次数为链表的长度减1
+		for(outer =head;outer.nextItem !=null;outer = outer.nextItem ){
+			for(inner = head;inner.nextItem !=null;inner = inner.nextItem){
+				//如果前一项比后一项大的话，交换其负载(不交换位置，这个是黑科技)
+				//不过这种黑科技不适合链表节点包含太多负债的情况
+				if(comparator.compare(inner, inner.nextItem)<0){
+					swap(inner,inner.nextItem);
 				}
 			}
-			outertemp = outertemp.nextItem;
-			//每次内部循环结束后，开启下一次循环都要置innerPre为null和innertemp为，以便从头开始排序
-			innerPre = null;
-			
-				
 		}
-		return item;
+		return head;
 	}
+	
 	/**
-	 * 交换两个相邻项的位置
+	 * 交换两个节点的负载
 	 * @param innertemp 前项
 	 * @param nextItem 后项
-	 * @param innerPre 前前项 可能为空，如果为空，代表前项乃第一项
 	 */
-	private void swap(Item innertemp, Item nextItem, Item innerPre) {
-		
+	private void swap(Item innertemp, Item nextItem) {
+		Integer exp= innertemp.exp;
+		Integer coef = innertemp.coef;
+		innertemp.exp = nextItem.exp;
+		innertemp.coef = nextItem.coef;
+		nextItem.exp = exp;
+		nextItem.coef = coef;
 	}
 }
