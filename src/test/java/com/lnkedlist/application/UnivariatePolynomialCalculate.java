@@ -209,10 +209,20 @@ public class UnivariatePolynomialCalculate {
 	 */
 	@Test
 	public void multitly() throws Exception {
+		System.out.println("多项式相乘开始");
 		System.out.println("开始输入第一个多项式");
-		Item item1 = getItem();
+		Item item1 = inputItem();
+		System.out.println("输入完毕,开始打印多项式");
+		printlnUnivariatePolynomial(item1);
 		System.out.println("开始输入第二个多项式");
-		Item item2 = getItem();
+		Item item2 = inputItem();
+		System.out.println("输入完毕,开始打印多项式");
+		printlnUnivariatePolynomial(item2);
+		System.out.println("开始相乘");
+		Item product = multitly(item1,item2);
+		printlnUnivariatePolynomial(product);
+		System.out.println("以上");
+		return ;
 		
 	}
 	/**
@@ -220,14 +230,46 @@ public class UnivariatePolynomialCalculate {
 	 * @param item1 
 	 * @param item2
 	 * @return
+	 * 其算法是:先算出两个链表最大的指数和.K
+	 * 然后以这个最大的指数和为范围,进行递减循环
+	 * 每一次递减循环,都去找出多项式的指数和为K的两个子项.
+	 * 6后进行乘
 	 */
 	public Item multitly(Item item1,Item item2) {
-		Item result = null;
-		while(item1 !=null) {
-			while(item2 !=null) {
+		int maxExp ;
+		Item point1 = item1;
+		
+		Item product = null;
+		maxExp = item1.exp+item2.exp;
+		item2 = reverse(item2);
+		Item point2 = item2;
+		int exp;
+		for(exp=maxExp;exp>=0;exp--) {
+			Integer coef = 0;
+			while(point1!=null && point1.exp>exp) {
+				point1 = point1.nextItem;
+			}
+			while(point1!=null && point2!=null &&  point1.exp+point2.exp<exp) {
+				point2 = point2.nextItem;
+			}
+			while(point1 !=null && point2 !=null) {
+				Integer sumExp = point1.exp+point2.exp;
+				if(sumExp == exp) {
+					coef+=point1.coef+point2.coef;
+					point1 = point1.nextItem;
+					point2 = point2.nextItem;
+				}
+				else if(sumExp > exp){
+					point1 = point1.nextItem;
+				}else {
+					point2 = point2.nextItem;
+				}
+			}
+			if(coef !=0.0) {
+				product = ItemUitl.addItem(exp, coef, product);
 			}
 		}
-		return result;
+		return product;
 	}
 	/**
 	 * 单项之间乘
@@ -236,6 +278,7 @@ public class UnivariatePolynomialCalculate {
 	 * @return 计算后的新项
 	 * 计算规则
 	 * 指数相加,系数相乘
+	 * 
 	 */
 	private Item itemMultitly(Item item1,Item itme2) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 		Integer coef = item1.coef*itme2.coef;
@@ -264,18 +307,35 @@ public class UnivariatePolynomialCalculate {
 				Integer coef = new Integer(reader.readLine());
 				System.out.println("请输入第"+count+"项的指数");
 				Integer exp = new Integer(reader.readLine());
-				head = ItemUitl.addItem(exp, coef, head);
+				if(coef.intValue() == 0 &&  exp.intValue() == 0) {
+					break;
+				}
+				head = ItemUitl.addItemByDescending(exp, coef, head);
 			} catch (NumberFormatException e) {
 				System.err.println("请输入正确的的数字格式");
 				continue;
 			}
-			System.out.println("已添加一项，键入回车继续添加，输入exit退出多项式的建立");
+			System.out.println("已添加一项,下面继续输入,如果系数和指数都是0则退出");
 			count++;
-			if("exit".equals(reader.readLine())){
-				break;
-			}
 		}
 		return head;
+	}
+	/**
+	 * 将链表反置
+	 * @param item
+	 * @return
+	 */
+	private Item reverse(Item item) {
+		//遍历到最后一个元素,从递归的最深处返回
+		if(item == null || item.nextItem ==null) {
+			return item;
+		}
+		Item postItem = reverse(item.nextItem);
+		//假设item指向4,下一项就是5,然后5的下一项指向4
+		item.nextItem.nextItem = item;
+		//4的下一项就指向null;
+		item.nextItem = null;
+		return postItem;
 	}
 }
                                                                                                                                                                                                                                                                                                                                         

@@ -112,7 +112,7 @@ public class SingleLinkedListUitl {
      *其实关键在于你要在递归过程中保存每一个链表的元素，这才可能反转链表
      */
     public static Node reverseLinkedLink(Node head) {  
-    	//如果递归到最后一个元素5，返回
+    	//如果递归到最后一个元素5，返回,之所以还有判断为空,是为了访问传入的head本来就是空的
         if(head == null || head.getNextNode()==null){
         	return head;
         }

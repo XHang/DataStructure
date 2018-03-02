@@ -36,16 +36,36 @@ public class ItemUitl {
 		if(item == null){
 			return new Item(exp, coef);
 		}
-		Item preItem = item;
+		Item preItem = null;
 		Item postItem = item;
 		while(true) {
-			//如果传进来指数大于当前循环的数,表示到达临界值,可以退出循环,判断为空是判断完整个链表,还是找不到临界值,则直接退出循环,反正
+			//如果传进来指数大于当前循环的数,表示到达临界值,可以退出循环,判断为空是万一判断完整个链表,还是找不到临界值,则直接退出循环
 			if(postItem ==null || exp>postItem.exp ) {
 				break;
 			}
 			preItem = postItem;
 			postItem = postItem.nextItem;
 		}
+		//跳出循环只是当输入的指数大于后一项是才会跳出
+		//但是关于输入的指数和前一项的指数,还有三种可能
+		//1:前一项是空的,这种情况的话,说明输入的指数比第一项还要大,自然连前一项都没赋值就退出循环了
+		//这个时候,新来的老大要替换掉旧的老大了
+		if(preItem == null) {
+			Item targerItem = new Item(exp, coef);
+			targerItem.nextItem = item;
+			return targerItem;
+		}
+		//2:是输入的指数小于前一项的指数
+		if(exp<preItem.exp) {
+			Item targerItem = new Item(exp, coef);
+			preItem.nextItem=targerItem;
+			targerItem.nextItem = postItem;
+		//3 是输入的指数等于前一项的指数
+		}else {
+			preItem.coef = preItem.coef+coef;
+		}
+		//什么,你说,输入的指数大于前一项的指数,那前一项应该就是后一项了,不可能成为前一项了
+		return item;
 	}
 	/**
 	 * 将一条链表附加在另一条链表的后面
