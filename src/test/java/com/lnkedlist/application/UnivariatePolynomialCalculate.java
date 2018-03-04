@@ -58,7 +58,7 @@ public class UnivariatePolynomialCalculate {
 	private Item addCalculate(Item item1,Item item2){
 		//如果相加的两个多项式其中有一条是空的，直接返回另一条就是了
 		if(item1 ==null){
-			return item2;
+			return item2;  
 		}
 		if(item2 ==  null){
 			return item1;
@@ -211,11 +211,13 @@ public class UnivariatePolynomialCalculate {
 	public void multitly() throws Exception {
 		System.out.println("多项式相乘开始");
 		System.out.println("开始输入第一个多项式");
-		Item item1 = inputItem();
+		//Item item1 = inputItem();
+		Item item1 = createItem1();
 		System.out.println("输入完毕,开始打印多项式");
 		printlnUnivariatePolynomial(item1);
 		System.out.println("开始输入第二个多项式");
-		Item item2 = inputItem();
+		//Item item2 = inputItem();
+		Item item2 = createItem2();
 		System.out.println("输入完毕,开始打印多项式");
 		printlnUnivariatePolynomial(item2);
 		System.out.println("开始相乘");
@@ -237,14 +239,16 @@ public class UnivariatePolynomialCalculate {
 	 */
 	public Item multitly(Item item1,Item item2) {
 		int maxExp ;
-		Item point1 = item1;
+		Item point1 = null;
 		
 		Item product = null;
 		maxExp = item1.exp+item2.exp;
 		item2 = reverse(item2);
-		Item point2 = item2;
+		Item point2 = null;
 		int exp;
 		for(exp=maxExp;exp>=0;exp--) {
+			point1 = item1;
+			point2 = item2;
 			Integer coef = 0;
 			while(point1!=null && point1.exp>exp) {
 				point1 = point1.nextItem;
@@ -252,19 +256,22 @@ public class UnivariatePolynomialCalculate {
 			while(point1!=null && point2!=null &&  point1.exp+point2.exp<exp) {
 				point2 = point2.nextItem;
 			}
+			//我猜之所以要循环指针是为了找出乘积后同类项,并事先合并之
 			while(point1 !=null && point2 !=null) {
 				Integer sumExp = point1.exp+point2.exp;
 				if(sumExp == exp) {
-					coef+=point1.coef+point2.coef;
+					coef+=point1.coef*point2.coef;
 					point1 = point1.nextItem;
 					point2 = point2.nextItem;
 				}
+				//如果当前两个项指数和大于exp,则要移动多项式1,驱使两个项之和接近与exp
 				else if(sumExp > exp){
 					point1 = point1.nextItem;
 				}else {
 					point2 = point2.nextItem;
 				}
 			}
+			//如果循环之后,连一次指数之和都没有等于exp,则exp是有可能为0的,所以要判断下
 			if(coef !=0.0) {
 				product = ItemUitl.addItem(exp, coef, product);
 			}
@@ -336,6 +343,19 @@ public class UnivariatePolynomialCalculate {
 		//4的下一项就指向null;
 		item.nextItem = null;
 		return postItem;
+	}
+	
+	private  Item createItem1() {
+		Item head = ItemUitl.addItem(4, 5, null);
+		 head = ItemUitl.addItem(2, 3, head);
+		 head = ItemUitl.addItem(1, 3, head);
+		 return head;
+	}
+	private  Item createItem2() {
+		 Item head = ItemUitl.addItem(3, 7, null);
+		 head = ItemUitl.addItem(2, 5, head);
+		 head = ItemUitl.addItem(1, 6, head);
+		 return head;
 	}
 }
                                                                                                                                                                                                                                                                                                                                         
