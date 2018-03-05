@@ -9,7 +9,8 @@ import java.nio.channels.IllegalChannelGroupException;
  */
 public class Stack<T> {
 	
-	private Object[] item;
+	private Object[] items;
+	//top指针永远指向栈顶指针
 	private int top;
 	
 	/**
@@ -17,7 +18,7 @@ public class Stack<T> {
 	 * @param size 栈的容量
 	 */
 	public Stack(int size) {
-		this.item = new Object[size];
+		this.items = new Object[size];
 		top = -1;
 	}
 	
@@ -28,7 +29,7 @@ public class Stack<T> {
 	private boolean isFull(){
 		//如果指针指向数组容量的前一位的话,说明,栈已满
 		//为什么是前一位呢?数组是从0角标开始的,容量为x的数组,最后一位的元素就是x-1
-		return top==item.length-1;
+		return top==items.length-1;
 	}
 	
 	/**
@@ -49,13 +50,14 @@ public class Stack<T> {
 		if(isEmpty()) {
 			throw new IllegalStateException("空栈取不出元素哦");
 		}
-		return (T)item[top];
+		return (T)items[top--];
 	}
     
-    public T set(T item) {
+    public void set(T item) {
     	if(isFull()) {
     		throw new IllegalStateException("已经栈满,不允许再添加了哦");
     	}
-    	item[]
+    	//top指向栈顶元素，如果要继续压栈，则必须先让栈顶指针移动一位，然后再压栈
+    	items[++top] = item;
     }
 }
