@@ -53,5 +53,23 @@ public class StackTest {
 		//搜索的是第二次压栈的元素，总共压栈四次，从上面数起，应该是第三位
 		System.out.println("search ing ....."+stack.search(user1));
 	}
+	
+	/**
+	 * 清空栈
+	 */
+	@Test
+	public void testCleanStack() {
+		Stack<User> stack = new Stack<User>(20);
+		//依次按0,1,2,3的顺序压栈
+		for(int i=0;i<4;i++){
+			User user = new User();
+			user.setUsername("人员"+i);
+			user.setPassword("passwd"+i);
+			stack.set(user);
+		}
+		stack.cleanStack();
+		//空栈取不出元素咯,所以这个会报错
+		stack.get();
+	}
 
 }

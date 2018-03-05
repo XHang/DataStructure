@@ -120,5 +120,14 @@ public class Stack<T> {
     	}
 		return -1;
     }
+    /**
+     * 清空栈
+     */
+    public void cleanStack() {
+    	for(int i=0;i <= top;i++) {
+    		removeElementAt(i);
+    	}
+    	this.top = -1;
+    }
     
 }
