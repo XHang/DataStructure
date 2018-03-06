@@ -1,6 +1,8 @@
 package com.stack;
 
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import com.stack.vo.User;
@@ -70,6 +72,25 @@ public class StackTest {
 		stack.cleanStack();
 		//空栈取不出元素咯,所以这个会报错
 		stack.get();
+	}
+	/**
+	 * 测试栈的迭代器功能
+	 */
+	@Test
+	public void iteratorTest(){
+		Stack<User> stack = new Stack<User>(20);
+		//依次按0,1,2,3的顺序压栈
+		for(int i=0;i<4;i++){
+			User user = new User();
+			user.setUsername("人员"+i);
+			user.setPassword("passwd"+i);
+			stack.set(user);
+		}
+		Iterator<User> iterator = stack.iterator();
+		while(iterator.hasNext()){
+			User user = iterator.next();
+			System.out.println("迭代到当前的元素是"+user);
+		}
 	}
 
 }

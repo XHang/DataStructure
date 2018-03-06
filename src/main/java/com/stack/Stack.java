@@ -1,13 +1,14 @@
 package com.stack;
 
 import java.util.EmptyStackException;
+import java.util.Iterator;
 
 /**
  * 一个栈对象
  * @author cxh
  *
  */
-public class Stack<T> {
+public class Stack<T>  {
 	
 	private Object[] items;
 	//top指针永远指向栈顶指针
@@ -128,6 +129,33 @@ public class Stack<T> {
     		removeElementAt(i);
     	}
     	this.top = -1;
+    }
+    
+    public Iterator<T> iterator(){
+    	return new StackIterator();
+    }
+    
+    
+    /**
+     * 栈内部自己的迭代器
+     * 当然要从栈顶迭代到栈底了
+     */
+    private class StackIterator implements Iterator<T>{
+
+    	int point = top;
+		@Override
+		public boolean hasNext() {
+			return !(point==-1);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public T next() {
+			T t = (T) items[point];
+			point -- ;
+			return t;
+		}
+    	
     }
     
 }
