@@ -9,7 +9,7 @@ public class Item<T> {
 
 	private T payload;
 	
-	private Item next;
+	private Item<T> next;
 
 	public T getPayload() {
 		return payload;
@@ -19,11 +19,11 @@ public class Item<T> {
 		this.payload = payload;
 	}
 
-	public Item getNext() {
+	public Item<T> getNext() {
 		return next;
 	}
 
-	public void setNext(Item next) {
+	public void setNext(Item <T>next) {
 		this.next = next;
 	}
 
