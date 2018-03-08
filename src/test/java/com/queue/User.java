@@ -32,6 +32,13 @@ public class User {
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + "]";
 	}
+
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	public User(){};
 	
 	
 	
