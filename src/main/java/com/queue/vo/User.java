@@ -1,4 +1,4 @@
-package com.queue;
+package com.queue.vo;
 
 
 /**

@@ -2,6 +2,8 @@ package com.queue;
 
 import org.junit.Test;
 
+import com.queue.vo.User;
+
 public class QueueTest {
 
 	/**
