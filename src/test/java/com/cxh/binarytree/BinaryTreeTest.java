@@ -11,14 +11,14 @@ public class BinaryTreeTest {
 	@Test
 	public void createBinaryTreeTest(){
 		BinaryTree tree = new BinaryTree();
-		tree.rootNode = new Node("1");
+		tree.rootNode = new BinaryNode("1");
         /* 现在这颗树变成了这样
 		        1
 		      /   \
 		    null  null     
          */
-		tree.rootNode.leftChildNode = new Node("2");
-		tree.rootNode.rightChildNode = new Node("3");
+		tree.rootNode.leftChildNode = new BinaryNode("2");
+		tree.rootNode.rightChildNode = new BinaryNode("3");
 		/* 进一步进化
 	        1
 	      /   \
@@ -26,7 +26,7 @@ public class BinaryTreeTest {
 	   /    \    /  \
 	 null null null null  
 	 */
-	tree.rootNode.leftChildNode.leftChildNode = new Node("4");
+	tree.rootNode.leftChildNode.leftChildNode = new BinaryNode("4");
 	//现在的树就如readme文件所说的那棵树了
 	}
 }

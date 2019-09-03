@@ -20,7 +20,7 @@ public class BiaaryTreeUitl {
 	 * @return
 	 * TODO 未完成
 	 */
-	private int getTreeDepth(Node node,int level){
+	private int getTreeDepth(BinaryNode node, int level){
 		if(node == null){
 			return level;
 		}

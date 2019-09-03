@@ -18,10 +18,10 @@ public class BinaryTreeTraversalTest {
 	@Test
 	public void binaryTreeTraversalTest(){
 		BinaryTree  tree = new BinaryTree("1");
-		tree.rootNode.leftChildNode = new Node("2");
-		tree.rootNode.rightChildNode = new Node("3");
-		tree.rootNode.leftChildNode.leftChildNode = new Node("4");
-		tree.rootNode.leftChildNode.rightChildNode = new Node("5");
+		tree.rootNode.leftChildNode = new BinaryNode("2");
+		tree.rootNode.rightChildNode = new BinaryNode("3");
+		tree.rootNode.leftChildNode.leftChildNode = new BinaryNode("4");
+		tree.rootNode.leftChildNode.rightChildNode = new BinaryNode("5");
 		
 		BinaryTreeTraversal treeTraversal = new BinaryTreeTraversal();
 		System.out.println("中序遍历.......");

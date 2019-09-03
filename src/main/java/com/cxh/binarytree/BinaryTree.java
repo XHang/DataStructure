@@ -4,14 +4,14 @@ package com.cxh.binarytree;
  * @author Administrator
  */
 public class BinaryTree {
-	Node rootNode;
+	BinaryNode rootNode;
 	
 	/**
 	 * 创建一个只有根节点的树
 	 * @param key 根节点的key
 	 */
 	BinaryTree(String key){
-		rootNode = new Node(key);
+		rootNode = new BinaryNode(key);
 	}
 	/**
 	 * 创建一颗空树

@@ -13,7 +13,7 @@ public class BinaryTreeTraversal {
 	/**
 	 * 中序遍历(递归)
 	 */
-	private void inorderTraversal(Node node){
+	private void inorderTraversal(BinaryNode node){
 		if(node == null){
 			return ;
 		}
@@ -25,7 +25,7 @@ public class BinaryTreeTraversal {
 	/**
 	 * 后序遍历(递归)
 	 */
-	private void postTraversal(Node node){
+	private void postTraversal(BinaryNode node){
 		if(node == null){
 			return ;
 		}
@@ -39,7 +39,7 @@ public class BinaryTreeTraversal {
 	 * 前序遍历(递归)
 	 * @param node
 	 */
-	private void preTraversal(Node node){
+	private void preTraversal(BinaryNode node){
 		if(node == null){
 			return ;
 		}
