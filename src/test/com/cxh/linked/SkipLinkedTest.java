@@ -8,7 +8,8 @@ import java.util.Random;
 import static org.junit.Assert.*;
 
 public class SkipLinkedTest {
-
+    final int size = 100000;
+    final int serachCount = 1000;
     @Test
     public void addBySkipList() throws InterruptedException {
         int count = 0;
@@ -16,25 +17,24 @@ public class SkipLinkedTest {
         SkipLinked<Integer> skipLinked = new SkipLinked<>();
         while (true) {
             count++;
-            if (count > 1000) {
+            if (count > size) {
                 break;
             }
-            int r = rondom.nextInt(10000);
+            int r = rondom.nextInt(size);
             skipLinked.add(r);
         }
         long maxTime = 0;
         count = 0;
         while (true) {
             count++;
-            if (count>1000){
+            if (count>serachCount){
                 break;
             }
             long startTime = System.nanoTime();
-            int target = rondom.nextInt(10000);
+            int target = rondom.nextInt(size);
             Node index = skipLinked.serach(target);
             long end = System.nanoTime();
             long diff = end-startTime;
-            System.out.println("本次查询耗费时长"+diff+"纳秒");
             if (maxTime<diff){
                 maxTime = diff;
             }
@@ -49,25 +49,24 @@ public class SkipLinkedTest {
         LinkedList<Integer> linkedList = new LinkedList<>();
         while (true) {
             count++;
-            if (count > 1000) {
+            if (count > size) {
                 break;
             }
-            int r = rondom.nextInt(10000);
+            int r = rondom.nextInt(size);
             linkedList.add(r);
         }
         long maxTime = 0;
         count = 0;
         while (true) {
             count++;
-            if (count>1000){
+            if (count>serachCount){
                 break;
             }
             long startTime = System.nanoTime();
-            int target = rondom.nextInt(10000);
+            int target = rondom.nextInt(size);
             int index = linkedList.indexOf(target);
             long end = System.nanoTime();
             long diff = end-startTime;
-            System.out.println("本次查询耗费时长"+diff+"纳秒");
             if (maxTime<diff){
                 maxTime = diff;
             }
